@@ -1,0 +1,38 @@
+{
+    "name": "kr-digital/names-detector",
+    "description": "Detect name and gender from a given string",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Alyamovsky",
+            "email": "ddlzz@yandex.ru"
+        }
+    ],
+    "scripts": {
+        "test": "./vendor/bin/phpunit",
+        "cs-fix": "./vendor/bin/php-cs-fixer fix -vv ./src/ ./tests/ --config=.php_cs.dist"
+    },
+    "require": {
+        "ext-json": "*",
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16.3",
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^8.4.3 || ^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KRDigital\\NamesDetector\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KRDigital\\NamesDetector\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

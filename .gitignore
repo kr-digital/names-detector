@@ -1,0 +1,8 @@
+###> IDE ###
+/.idea/
+###< IDE ###
+
+###> Composer ###
+/vendor/
+composer.lock
+###< Composer ###
