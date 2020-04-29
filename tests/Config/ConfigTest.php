@@ -33,7 +33,7 @@ class ConfigTest extends TestCase
     public function testIncorrectDictionaryExtension(): void
     {
         $this->expectException(InvalidDictionarySourceException::class);
-        $this->expectExceptionMessageMatches('~Extension foo is not valid~');
+        $this->expectExceptionMessageRegExp('~Extension foo is not valid~');
 
         new Config(__DIR__.'/../data/dictionary.foo');
     }
