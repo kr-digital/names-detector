@@ -6,16 +6,32 @@ namespace KRDigital\NamesDetector\Entry\Prefix;
 
 use KRDigital\NamesDetector\Entry\Gender;
 
-class DefaultPrefix implements PrefixInterface
+class Prefix implements PrefixInterface
 {
+    /**
+     * @var string
+     */
+    protected $malePrefix;
+
+    /**
+     * @var string
+     */
+    protected $femalePrefix;
+
+    public function __construct(string $malePrefix = null, string $femalePrefix = null)
+    {
+        $this->malePrefix = $malePrefix ?? 'Уважаемый';
+        $this->femalePrefix = $femalePrefix ?? 'Уважаемая';
+    }
+
     public function getMalePrefix(): string
     {
-        return 'Уважаемый';
+        return $this->malePrefix;
     }
 
     public function getFemalePrefix(): string
     {
-        return 'Уважаемая';
+        return $this->femalePrefix;
     }
 
     public function getPrefixByGender(Gender $gender): string

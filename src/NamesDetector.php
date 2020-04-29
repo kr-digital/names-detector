@@ -8,7 +8,7 @@ use KRDigital\NamesDetector\Config\ConfigInterface;
 use KRDigital\NamesDetector\Engine\EngineFactory;
 use KRDigital\NamesDetector\Engine\EngineInterface;
 use KRDigital\NamesDetector\Entry\Entry;
-use KRDigital\NamesDetector\Entry\Prefix\DefaultPrefix;
+use KRDigital\NamesDetector\Entry\Prefix\Prefix;
 use KRDigital\NamesDetector\Entry\Prefix\PrefixInterface;
 use KRDigital\NamesDetector\Exception\InvalidSearchInputException;
 
@@ -55,7 +55,7 @@ class NamesDetector
     public function createTitle(string $input, PrefixInterface $prefix = null, bool $addMiddleName = true): ?string
     {
         if (null === $prefix) {
-            $prefix = new DefaultPrefix();
+            $prefix = new Prefix();
         }
 
         $firstName = $this->extractFirstName($input, true);
