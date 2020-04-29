@@ -6,3 +6,11 @@
 /vendor/
 composer.lock
 ###< Composer ###
+
+###> PHP CS-Fixer ###
+.php_cs.cache
+###< PHP CS-Fixer ###
+
+###> PHPUnit ###
+.phpunit.result.cache
+###< PHPUnit ###
