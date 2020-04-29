@@ -10,7 +10,7 @@
         }
     ],
     "scripts": {
-        "test": "./vendor/bin/phpunit",
+        "test": "./vendor/bin/phpunit tests/",
         "cs-fix": "./vendor/bin/php-cs-fixer fix -vv ./src/ ./tests/ --config=.php_cs.dist"
     },
     "require": {
