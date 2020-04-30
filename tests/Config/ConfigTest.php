@@ -9,6 +9,9 @@ use KRDigital\NamesDetector\Config\Dictionary;
 use KRDigital\NamesDetector\Exception\InvalidDictionarySourceException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \KRDigital\NamesDetector\Config\Config
+ */
 class ConfigTest extends TestCase
 {
     public function testCorrectPhpDictionaryPath(): void

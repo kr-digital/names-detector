@@ -10,6 +10,9 @@ use KRDigital\NamesDetector\Entry\Gender;
 use KRDigital\NamesDetector\Entry\Type;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \KRDigital\NamesDetector\Config\Dictionary
+ */
 class DictionaryTest extends TestCase
 {
     public function testFindFirstName(): void

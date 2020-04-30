@@ -7,6 +7,9 @@ namespace KRDigital\NamesDetector\Tests;
 use KRDigital\NamesDetector\NamesDetector;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \KRDigital\NamesDetector\NamesDetector
+ */
 class NamesDetectorTest extends TestCase
 {
     /**
