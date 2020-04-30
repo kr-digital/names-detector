@@ -38,7 +38,7 @@ class ConfigTest extends TestCase
         $this->expectException(InvalidDictionarySourceException::class);
         $this->expectExceptionMessageRegExp('~Extension foo is not valid~');
 
-        new Config(__DIR__.'/../data/dictionary.foo');
+        (new Config(__DIR__.'/../data/dictionary.foo'))->getDictionary();
     }
 
     public function testCorrectJsonDictionaryPath(): void

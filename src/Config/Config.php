@@ -18,25 +18,53 @@ class Config implements ConfigInterface
     ];
 
     /**
+     * @var string|null
+     */
+    protected $dictionaryPath;
+
+    /**
+     * @var array|null
+     */
+    protected $dictionaryData;
+
+    /**
      * @var DictionaryInterface
      */
     protected $dictionary;
 
-    public function __construct(string $dictionaryPath, array $dictionary = [])
+    public function __construct(string $dictionaryPath = null, array $dictionaryData = [])
     {
-        if (empty($dictionary) && !\file_exists($dictionaryPath)) {
+        if (empty($dictionaryData) && null === $dictionaryPath) {
+            throw new InvalidDictionarySourceException('No input data is provided');
+        }
+
+        if (null !== $dictionaryPath && !\file_exists($dictionaryPath)) {
             throw new InvalidDictionarySourceException(\sprintf('Path %s is invalid', $dictionaryPath));
         }
 
-        $this->dictionary = !empty($dictionary) ? $dictionary : $this->createDictionary($dictionaryPath);
+        $this->dictionaryPath = $dictionaryPath;
+        $this->dictionaryData = $dictionaryData;
     }
 
     public function getDictionary(): DictionaryInterface
     {
+        if (null === $this->dictionary) {
+            $this->dictionary = $this->initDictionary();
+        }
+
         return $this->dictionary;
     }
 
-    protected function createDictionary(string $dictionaryPath): DictionaryInterface
+    protected function initDictionary(): DictionaryInterface
+    {
+        if (!empty($this->dictionaryData)) {
+            return Dictionary::fromArray($this->dictionaryData);
+        }
+
+        return $this->createDictionaryFromFile($this->dictionaryPath);
+    }
+
+    protected function createDictionaryFromFile(string $dictionaryPath): DictionaryInterface
     {
         $dictionaryExtension = \pathinfo($dictionaryPath, PATHINFO_EXTENSION);
 
