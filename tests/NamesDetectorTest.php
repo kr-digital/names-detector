@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KRDigital\NamesDetector\Tests;
 
+use KRDigital\NamesDetector\Entry\Prefix\Prefix;
 use KRDigital\NamesDetector\NamesDetector;
 use PHPUnit\Framework\TestCase;
 
@@ -23,6 +24,19 @@ class NamesDetectorTest extends TestCase
         $output = \sprintf('Уважаемый %s %s', $firstName, $middleName);
 
         self::assertEquals($output, $namesDetector->createTitle($input));
+    }
+
+    /**
+     * @dataProvider provideDataForTestSuccessfulCreateMaleTitle
+     */
+    public function testSuccessfulCreateMaleTitleWithCustomPrefix(string $input): void
+    {
+        $namesDetector = new NamesDetector();
+
+        [$lastName, $firstName, $middleName] = \explode(' ', $input);
+        $output = \sprintf('Дорогой %s %s', $firstName, $middleName);
+
+        self::assertEquals($output, $namesDetector->createTitle($input, new Prefix('Дорогой', 'Дорогая')));
     }
 
     public function provideDataForTestSuccessfulCreateMaleTitle(): array
@@ -82,6 +96,19 @@ class NamesDetectorTest extends TestCase
         self::assertEquals($output, $namesDetector->createTitle($input));
     }
 
+    /**
+     * @dataProvider provideDataForTestSuccessfulCreateFemaleTitle
+     */
+    public function testSuccessfulCreateFemaleTitleWithCustomPrefix(string $input): void
+    {
+        $namesDetector = new NamesDetector();
+
+        [$lastName, $firstName, $middleName] = \explode(' ', $input);
+        $output = \sprintf('Дорогая %s %s', $firstName, $middleName);
+
+        self::assertEquals($output, $namesDetector->createTitle($input, new Prefix('Дорогой', 'Дорогая')));
+    }
+
     public function provideDataForTestSuccessfulCreateFemaleTitle(): array
     {
         return [
@@ -127,6 +154,7 @@ class NamesDetectorTest extends TestCase
         return [
             ['Тестов Тест Тестович'],
             ['Сидорова Надежда Александрович'],
+            [''],
         ];
     }
 }
