@@ -33,7 +33,7 @@ class Entry
     public static function fromArray(array $data): self
     {
         if ($diff = \array_diff(['type', 'gender', 'value'], \array_keys($data))) {
-            throw new InvalidEntryInputDataException('Invalid input keys', $diff);
+            throw new InvalidEntryInputDataException('Input entry keys missing', $diff);
         }
 
         return new static(new Type($data['type']), new Gender($data['gender']), $data['value']);
