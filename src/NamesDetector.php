@@ -52,7 +52,7 @@ class NamesDetector
         return $result;
     }
 
-    public function createTitle(string $input, PrefixInterface $prefix = null, bool $addMiddleName = true): ?string
+    public function createTitle(string $input, PrefixInterface $prefix = null): ?string
     {
         if (null === $prefix) {
             $prefix = new Prefix();
@@ -64,16 +64,12 @@ class NamesDetector
             return null;
         }
 
-        if ($addMiddleName) {
-            $middleName = $this->extractMiddleName($input, true);
+        $middleName = $this->extractMiddleName($input, true);
 
-            if (null === $middleName || !$firstName->getGender()->equals($middleName->getGender())) {
-                return null;
-            }
-
-            return \sprintf('%s %s %s', $prefix->getPrefixByGender($firstName->getGender()), $firstName->getValue(), $middleName->getValue());
+        if (null === $middleName || !$firstName->getGender()->equals($middleName->getGender())) {
+            return null;
         }
 
-        return \sprintf('%s %s', $prefix->getPrefixByGender($firstName->getGender()), $firstName->getValue());
+        return \sprintf('%s %s %s', $prefix->getPrefixByGender($firstName->getGender()), $firstName->getValue(), $middleName->getValue());
     }
 }
