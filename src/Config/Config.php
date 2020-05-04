@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace KRDigital\NamesDetector\Config;
 
+use KRDigital\NamesDetector\Dictionary\Dictionary;
+use KRDigital\NamesDetector\Dictionary\DictionaryInterface;
 use KRDigital\NamesDetector\Exception\InvalidDictionarySourceException;
 
 class Config implements ConfigInterface

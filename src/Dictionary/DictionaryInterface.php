@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KRDigital\NamesDetector\Config;
+namespace KRDigital\NamesDetector\Dictionary;
 
 use KRDigital\NamesDetector\Entry\Entry;
 

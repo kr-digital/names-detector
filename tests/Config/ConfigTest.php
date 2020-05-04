@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace KRDigital\NamesDetector\Tests\Config;
 
 use KRDigital\NamesDetector\Config\Config;
-use KRDigital\NamesDetector\Config\Dictionary;
+use KRDigital\NamesDetector\Dictionary\Dictionary;
 use KRDigital\NamesDetector\Exception\InvalidDictionarySourceException;
 use PHPUnit\Framework\TestCase;
 

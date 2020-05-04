@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace KRDigital\NamesDetector\Tests;
 
-use KRDigital\NamesDetector\Config\Dictionary;
+use KRDigital\NamesDetector\Dictionary\Dictionary;
 use KRDigital\NamesDetector\Entry\Entry;
 use KRDigital\NamesDetector\Entry\Gender;
 use KRDigital\NamesDetector\Entry\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \KRDigital\NamesDetector\Config\Dictionary
+ * @covers \KRDigital\NamesDetector\Dictionary\Dictionary
  */
 class DictionaryTest extends TestCase
 {
