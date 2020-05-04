@@ -22,7 +22,7 @@ class Dictionary implements DictionaryInterface
 
     public static function fromArray(array $data): self
     {
-        if ($diff = \array_diff(\array_keys($data), ['first_names', 'middle_names'])) {
+        if ($diff = \array_diff(['first_names', 'middle_names'], \array_keys($data))) {
             throw new InvalidDictionaryInputDataException('Invalid input keys', $diff);
         }
 
