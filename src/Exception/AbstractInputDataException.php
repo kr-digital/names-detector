@@ -9,7 +9,7 @@ abstract class AbstractInputDataException extends \InvalidArgumentException
     public function __construct($message = '', array $invalidKeys = [])
     {
         if (!empty($invalidKeys)) {
-            $message .= \sprintf(' %s', \implode(', ', $invalidKeys));
+            $message .= \sprintf(': "%s"', \implode(', ', $invalidKeys));
         }
 
         parent::__construct($message);
