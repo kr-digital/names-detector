@@ -6,6 +6,7 @@ namespace KRDigital\NamesDetector\Tests\Config;
 
 use KRDigital\NamesDetector\Config\Config;
 use KRDigital\NamesDetector\Dictionary\Dictionary;
+use KRDigital\NamesDetector\Entry\Gender;
 use KRDigital\NamesDetector\Exception\InvalidDictionarySourceException;
 use PHPUnit\Framework\TestCase;
 
@@ -51,5 +52,25 @@ class ConfigTest extends TestCase
 
         self::assertNotEmpty($config->getDictionary());
         self::assertEquals($config->getDictionary(), $dictionary);
+    }
+
+    public function testCreateDictionaryFromData(): void
+    {
+        $config = new Config(null, [
+            'first_names' => [
+                [
+                    'Foo',
+                    Gender::GENDER_MALE,
+                ],
+            ],
+            'middle_names' => [
+                [
+                    'Bar',
+                    Gender::GENDER_MALE,
+                ],
+            ],
+        ]);
+
+        self::assertInstanceOf(Dictionary::class, $config->getDictionary());
     }
 }

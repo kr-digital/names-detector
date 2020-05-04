@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace KRDigital\NamesDetector\Tests;
 
+use KRDigital\NamesDetector\Config\Config;
+use KRDigital\NamesDetector\Entry\Gender;
 use KRDigital\NamesDetector\Entry\Prefix\Prefix;
 use KRDigital\NamesDetector\NamesDetector;
 use PHPUnit\Framework\TestCase;
@@ -156,5 +158,41 @@ class NamesDetectorTest extends TestCase
             ['Сидорова Надежда Александрович'],
             [''],
         ];
+    }
+
+    public function testIncorrectStrictFirstNameExtract(): void
+    {
+        $name = 'Foo';
+        $config = new Config(null, [
+            'first_names' => [
+                [
+                    $name,
+                    Gender::GENDER_MALE,
+                ],
+            ],
+            'middle_names' => [],
+        ]);
+
+        $namesDetector = new NamesDetector($config);
+
+        self::assertNull($namesDetector->extractFirstName(\sprintf('%s %s Bar', $name, $name), true));
+    }
+
+    public function testIncorrectStrictMiddleNameExtract(): void
+    {
+        $middleName = 'Foo';
+        $config = new Config(null, [
+            'first_names' => [],
+            'middle_names' => [
+                [
+                    $middleName,
+                    Gender::GENDER_MALE,
+                ],
+            ],
+        ]);
+
+        $namesDetector = new NamesDetector($config);
+
+        self::assertNull($namesDetector->extractMiddleName(\sprintf('%s %s Bar', $middleName, $middleName), true));
     }
 }
