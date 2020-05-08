@@ -7,6 +7,7 @@ namespace KRDigital\NamesDetector\Dictionary;
 use KRDigital\NamesDetector\Entry\Entry;
 use KRDigital\NamesDetector\Entry\Type;
 use KRDigital\NamesDetector\Exception\InvalidDictionaryInputDataException;
+use KRDigital\NamesDetector\Util\StringUtil;
 
 class Dictionary implements DictionaryInterface
 {
@@ -60,7 +61,7 @@ class Dictionary implements DictionaryInterface
      */
     protected static function getKey(string $name, array $data)
     {
-        $key = \array_search(\ucfirst(\strtolower($name)), \array_column($data, 0), true);
+        $key = \array_search(StringUtil::capitalize($name), \array_column($data, 0), true);
 
         if (false === $key) {
             return null;

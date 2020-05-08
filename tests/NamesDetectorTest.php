@@ -8,6 +8,7 @@ use KRDigital\NamesDetector\Config\Config;
 use KRDigital\NamesDetector\Entry\Gender;
 use KRDigital\NamesDetector\Entry\Prefix\Prefix;
 use KRDigital\NamesDetector\NamesDetector;
+use KRDigital\NamesDetector\Util\StringUtil;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +24,7 @@ class NamesDetectorTest extends TestCase
         $namesDetector = new NamesDetector();
 
         [$lastName, $firstName, $middleName] = \explode(' ', $input);
-        $output = \sprintf('Уважаемый %s %s', $firstName, $middleName);
+        $output = StringUtil::capitalize(\sprintf('Уважаемый %s %s', $firstName, $middleName));
 
         self::assertEquals($output, $namesDetector->createTitle($input));
     }
@@ -36,7 +37,7 @@ class NamesDetectorTest extends TestCase
         $namesDetector = new NamesDetector();
 
         [$lastName, $firstName, $middleName] = \explode(' ', $input);
-        $output = \sprintf('Дорогой %s %s', $firstName, $middleName);
+        $output = StringUtil::capitalize(\sprintf('Дорогой %s %s', $firstName, $middleName));
 
         self::assertEquals($output, $namesDetector->createTitle($input, new Prefix('Дорогой', 'Дорогая')));
     }
@@ -82,6 +83,8 @@ class NamesDetectorTest extends TestCase
             ['Миронов Алексей Львович'],
             ['Куликов Прохор Денисович'],
             ['Наумов Юлиан Глебович'],
+            ['Иванов михаил михайлович'],
+            ['Зиновьев АНДРЕЙ пЕтРович'],
         ];
     }
 
@@ -93,7 +96,7 @@ class NamesDetectorTest extends TestCase
         $namesDetector = new NamesDetector();
 
         [$lastName, $firstName, $middleName] = \explode(' ', $input);
-        $output = \sprintf('Уважаемая %s %s', $firstName, $middleName);
+        $output = StringUtil::capitalize(\sprintf('Уважаемая %s %s', $firstName, $middleName));
 
         self::assertEquals($output, $namesDetector->createTitle($input));
     }
@@ -106,7 +109,7 @@ class NamesDetectorTest extends TestCase
         $namesDetector = new NamesDetector();
 
         [$lastName, $firstName, $middleName] = \explode(' ', $input);
-        $output = \sprintf('Дорогая %s %s', $firstName, $middleName);
+        $output = StringUtil::capitalize(\sprintf('Дорогая %s %s', $firstName, $middleName));
 
         self::assertEquals($output, $namesDetector->createTitle($input, new Prefix('Дорогой', 'Дорогая')));
     }
@@ -138,6 +141,10 @@ class NamesDetectorTest extends TestCase
             ['Лазарева Ванесса Игнатьевна'],
             ['Зыкова Есения Ивановна'],
             ['Герасимова Лира Игоревна'],
+            ['иванова алина александровна'],
+            ['иванова алИНа алеКСандровна'],
+            ['ПЕТРОВА КСЕНИЯ МИХАЙЛОВНА'],
+            ['Михайлова ЕКАТЕРИНА ВАлерьевна'],
         ];
     }
 

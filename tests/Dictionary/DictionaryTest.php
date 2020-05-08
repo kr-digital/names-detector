@@ -59,7 +59,7 @@ class DictionaryTest extends TestCase
     /**
      * @dataProvider provideDataForTestCapitalizeFirstName
      */
-    public function testCapitalizeFirstName(string $firstName): void
+    public function testCapitalizeFirstName(string $input, string $expected): void
     {
         $dictionaryData = [
             'first_names' => [],
@@ -68,22 +68,31 @@ class DictionaryTest extends TestCase
 
         $dictionaryData['first_names'] = [
             [
-                \ucfirst(\strtolower($firstName)),
+                $expected,
                 Gender::GENDER_MALE,
             ],
         ];
 
         $dictionary = Dictionary::fromArray($dictionaryData);
 
-        self::assertEquals(\ucfirst(\strtolower($firstName)), $dictionary->findFirstName($firstName)->getValue());
+        self::assertEquals($expected, $dictionary->findFirstName($input)->getValue());
     }
 
     public function provideDataForTestCapitalizeFirstName(): array
     {
         return [
-            ['андрей'],
-            ['АНДРЕЙ'],
-            ['АнДрЕй'],
+            [
+                'андрей',
+                'Андрей',
+            ],
+            [
+                'АНДРЕЙ',
+                'Андрей',
+            ],
+            [
+                'АнДрЕй',
+                'Андрей',
+            ],
         ];
     }
 
@@ -130,7 +139,7 @@ class DictionaryTest extends TestCase
     /**
      * @dataProvider provideDataForTestCapitalizeMiddleName
      */
-    public function testCapitalizeMiddleName(string $middleName): void
+    public function testCapitalizeMiddleName(string $input, string $expected): void
     {
         $dictionaryData = [
             'first_names' => [],
@@ -139,22 +148,31 @@ class DictionaryTest extends TestCase
 
         $dictionaryData['middle_names'] = [
             [
-                \ucfirst(\strtolower($middleName)),
+                $expected,
                 Gender::GENDER_MALE,
             ],
         ];
 
         $dictionary = Dictionary::fromArray($dictionaryData);
 
-        self::assertEquals(\ucfirst(\strtolower($middleName)), $dictionary->findMiddleName($middleName)->getValue());
+        self::assertEquals($expected, $dictionary->findMiddleName($input)->getValue());
     }
 
     public function provideDataForTestCapitalizeMiddleName(): array
     {
         return [
-            ['андреевич'],
-            ['АНДРЕЕВИЧ'],
-            ['АнДрЕеВиЧ'],
+            [
+                'андреевич',
+                'Андреевич',
+            ],
+            [
+                'АНДРЕЕВИЧ',
+                'Андреевич',
+                ],
+            [
+                'АнДрЕеВиЧ',
+                'Андреевич',
+            ],
         ];
     }
 
