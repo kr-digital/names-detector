@@ -56,6 +56,37 @@ class DictionaryTest extends TestCase
         self::assertNotEquals($entry1, $dictionary->findFirstName($entryData2['value']));
     }
 
+    /**
+     * @dataProvider provideDataForTestCapitalizeFirstName
+     */
+    public function testCapitalizeFirstName(string $firstName): void
+    {
+        $dictionaryData = [
+            'first_names' => [],
+            'middle_names' => [],
+        ];
+
+        $dictionaryData['first_names'] = [
+            [
+                \ucfirst(\strtolower($firstName)),
+                Gender::GENDER_MALE,
+            ],
+        ];
+
+        $dictionary = Dictionary::fromArray($dictionaryData);
+
+        self::assertEquals(\ucfirst(\strtolower($firstName)), $dictionary->findFirstName($firstName)->getValue());
+    }
+
+    public function provideDataForTestCapitalizeFirstName(): array
+    {
+        return [
+            ['андрей'],
+            ['АНДРЕЙ'],
+            ['АнДрЕй'],
+        ];
+    }
+
     public function testFindMiddleName(): void
     {
         $dictionaryData = [
@@ -94,6 +125,37 @@ class DictionaryTest extends TestCase
         self::assertEquals($entry1, $dictionary->findMiddleName($entryData1['value']));
         self::assertEquals($entry2, $dictionary->findMiddleName($entryData2['value']));
         self::assertNotEquals($entry1, $dictionary->findMiddleName($entryData2['value']));
+    }
+
+    /**
+     * @dataProvider provideDataForTestCapitalizeMiddleName
+     */
+    public function testCapitalizeMiddleName(string $middleName): void
+    {
+        $dictionaryData = [
+            'first_names' => [],
+            'middle_names' => [],
+        ];
+
+        $dictionaryData['middle_names'] = [
+            [
+                \ucfirst(\strtolower($middleName)),
+                Gender::GENDER_MALE,
+            ],
+        ];
+
+        $dictionary = Dictionary::fromArray($dictionaryData);
+
+        self::assertEquals(\ucfirst(\strtolower($middleName)), $dictionary->findMiddleName($middleName)->getValue());
+    }
+
+    public function provideDataForTestCapitalizeMiddleName(): array
+    {
+        return [
+            ['андреевич'],
+            ['АНДРЕЕВИЧ'],
+            ['АнДрЕеВиЧ'],
+        ];
     }
 
     public function testIncorrectInstance(): void

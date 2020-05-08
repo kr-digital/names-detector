@@ -31,11 +31,7 @@ class Dictionary implements DictionaryInterface
 
     public function findFirstName(string $name): ?Entry
     {
-        $key = \array_search($name, \array_column($this->firstNames, 0), true);
-
-        if (false === $key) {
-            return null;
-        }
+        $key = self::getKey($name, $this->firstNames);
 
         $result = $this->firstNames[$key] ?? null;
 
@@ -48,11 +44,7 @@ class Dictionary implements DictionaryInterface
 
     public function findMiddleName(string $name): ?Entry
     {
-        $key = \array_search($name, \array_column($this->middleNames, 0), true);
-
-        if (false === $key) {
-            return null;
-        }
+        $key = self::getKey($name, $this->middleNames);
 
         $result = $this->middleNames[$key] ?? null;
 
@@ -61,5 +53,19 @@ class Dictionary implements DictionaryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return int|string|null
+     */
+    protected static function getKey(string $name, array $data)
+    {
+        $key = \array_search(\ucfirst(\strtolower($name)), \array_column($data, 0), true);
+
+        if (false === $key) {
+            return null;
+        }
+
+        return $key;
     }
 }
