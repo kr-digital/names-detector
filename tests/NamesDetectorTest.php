@@ -202,4 +202,28 @@ class NamesDetectorTest extends TestCase
 
         self::assertNull($namesDetector->extractMiddleName(\sprintf('%s %s Bar', $middleName, $middleName), true));
     }
+
+    /**
+     * @dataProvider provideDataForTestCreateMaleTitleFromCustomOrderInput
+     */
+    public function testCreateMaleTitleFromCustomOrderInput(string $input, string $expected): void
+    {
+        $namesDetector = new NamesDetector();
+
+        self::assertEquals($expected, $namesDetector->createTitle($input));
+    }
+
+    public function provideDataForTestCreateMaleTitleFromCustomOrderInput(): array
+    {
+        return [
+            [
+                'Иван Иванович Иванов',
+                'Уважаемый Иван Иванович',
+            ],
+            [
+                'Петровна Foo дарина 12345',
+                'Уважаемая Дарина Петровна',
+            ],
+        ];
+    }
 }
